@@ -1,0 +1,14 @@
+/vendor/
+*.log
+*.cache
+*.lock
+
+.env
+
+db_data/
+*.pid
+
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

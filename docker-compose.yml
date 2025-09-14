@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+  app:
+    build: .
+    container_name: phptest_app
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+    environment:
+      ADMIN_LOGIN: admin
+      ADMIN_PASSWORD: secret
+      YANDEX_TOKEN: your_yandex_token
+      YANDEX_CLIENT_LOGIN: your_client_login
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: phptest
+      DB_USER: phptest
+      DB_PASS: phptest
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    container_name: phptest_db
+    restart: always
+    environment:
+      POSTGRES_DB: phptest
+      POSTGRES_USER: phptest
+      POSTGRES_PASSWORD: phptest
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./sql:/docker-entrypoint-initdb.d
+
+volumes:
+  db_data:
